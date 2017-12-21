@@ -17,18 +17,27 @@ function playRound(userMove) {
   userMove = userMove.trim()
   if (userMove === 'quit') {
     done()
+  } else if (userMove !== "rock" && userMove !== "scissors" && userMove !== "paper") {
+    console.log("Please enter a valid input. NOTE: Inputs must be lowercase.")
+  } else {
+    const aiMove = logic.computerMove()
+    const result = logic.calculateWinner(userMove, aiMove)
+    const userScore = logic.returnUserScore()
+    const aiScore = logic.returnAiScore()
+    const draws = logic.returnDraws()
+    printMoves(userMove, aiMove, result, userScore, aiScore, draws)
+    console.log('Play again: \n')
   }
-  const aiMove = logic.computerMove()
-  const result = logic.calculateWinner(userMove, aiMove)
-  printMoves(userMove, aiMove, result)
-  console.log('Play again: \n')
 }
 
-function printMoves(user, ai, result) {
+function printMoves(user, ai, result, userScore, aiScore, draws) {
   console.log('\n')
   console.log('Your move: ' + user)
   console.log('Computer move: ' + ai + '\n')
   console.log('Winner: ' + result + '\n')
+  console.log("User Score: " + userScore)
+  console.log("Computer Score: " + aiScore)
+  console.log("Number of Draws: " + draws + '\n')
 }
 
 function done() {
