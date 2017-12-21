@@ -1,18 +1,36 @@
 #!/usr/bin/env node
+const logic = require('../logic')
 
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
+process.stdin.resume()
+process.stdin.setEncoding('utf8')
 
-console.log('Rock, Paper, Scissors, Shoot!');
+printWelcomeMessage()
 
-process.stdin.on('data', function (text) {
-  console.log(text)
-  console.log('Try again:');
-  if (text.trim() === 'quit') {
-    done();
+process.stdin.on('data', playRound)
+
+function printWelcomeMessage() {
+  console.log('Rock, Paper, Scissors, Shoot!')
+  console.log('Enter your choice (or quit to exit):')
+}
+
+function playRound(userMove) {
+  if (userMove.trim() === 'quit') {
+    done()
   }
-});
+  const aiMove = logic.computerMove()
+  const result = logic.calculateWinner(userMove, aiMove)
+  printMoves(userMove, aiMove, result)
+  console.log('Play again: \n')
+}
+
+function printMoves(user, ai, result) {
+  console.log('\n')
+  console.log('Your move: ' + user)
+  console.log('Computer move: ' + ai + '\n')
+  console.log('Winner: ' + result + '\n')
+}
 
 function done() {
-  process.exit();
+  console.log('Thanks for playing!')
+  process.exit()
 }
