@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
+console.log('Rock, Paper, Scissors, Shoot!');
+
+process.stdin.on('data', function (text) {
+  console.log(text)
+  console.log('Try again:');
+  if (text.trim() === 'quit') {
+    done();
+  }
+});
+
+function done() {
+  process.exit();
+}
